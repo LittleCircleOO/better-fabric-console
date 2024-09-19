@@ -24,11 +24,9 @@
 package xyz.jpenilla.betterfabricconsole.mixin;
 
 import net.minecraft.network.protocol.game.ServerboundChatCommandPacket;
-import net.minecraft.network.protocol.game.ServerboundChatCommandSignedPacket;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.server.network.ServerPlayerConnection;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -41,21 +39,8 @@ abstract class ServerGamePacketListenerImplMixin implements ServerPlayerConnecti
     at = @At("HEAD")
   )
   private void logExecutedCommand(final ServerboundChatCommandPacket packet, final CallbackInfo ci) {
-    this.logCommand(packet.command());
-  }
-
-  @Inject(
-    method = "handleSignedChatCommand",
-    at = @At("HEAD")
-  )
-  private void logExecutedSignedCommand(final ServerboundChatCommandSignedPacket packet, final CallbackInfo ci) {
-    this.logCommand(packet.command());
-  }
-
-  @Unique
-  private void logCommand(final String command) {
     if (BetterFabricConsole.instance().config().logPlayerExecutedCommands()) {
-      BetterFabricConsole.LOGGER.info("{} issued server command: /{}", this.getPlayer().getGameProfile().getName(), command);
+      BetterFabricConsole.LOGGER.info("{} issued server command: /{}", this.getPlayer().getGameProfile().getName(), packet.command());
     }
   }
 }

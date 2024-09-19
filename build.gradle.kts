@@ -9,17 +9,17 @@ plugins {
   id("me.modmuss50.mod-publish-plugin") version "0.7.3"
 }
 
-version = "1.1.11-SNAPSHOT"
+version = "1.1.11"
 group = "xyz.jpenilla"
 description = "Server-side Fabric mod enhancing the console with tab completions, colored log output, command syntax highlighting, command history, and more."
 
-val minecraftVersion = "1.21.1"
+val minecraftVersion = "1.20.1"
 
 dependencies {
   minecraft("com.mojang", "minecraft", minecraftVersion)
   mappings(loom.officialMojangMappings())
   modImplementation("net.fabricmc", "fabric-loader", "0.16.5")
-  modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.103.0+1.21.1")
+  modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.92.2+1.20.1")
 
   annotationProcessor("org.apache.logging.log4j", "log4j-core", "2.23.1")
 
@@ -29,9 +29,12 @@ dependencies {
 
   implementation(include("org.fusesource.jansi", "jansi", "2.4.1"))
 
-  modImplementation(include("net.kyori", "adventure-platform-fabric", "5.14.1"))
+  modImplementation(include("net.kyori", "adventure-platform-fabric", "5.9.0"))
 
-  implementation(transitiveInclude("org.spongepowered:configurate-hocon:4.1.2")!!)
+  implementation(include("com.typesafe:config:1.4.2")!!)
+  implementation(include("io.leangen.geantyref:geantyref:1.3.13")!!)
+  implementation(include("org.spongepowered:configurate-core:4.1.2")!!)
+  implementation(include("org.spongepowered:configurate-hocon:4.1.2")!!)
 
   compileOnly("org.checkerframework", "checker-qual", "3.45.0")
 
@@ -39,7 +42,7 @@ dependencies {
 }
 
 indra {
-  javaVersions().target(21)
+  javaVersions().target(17)
 }
 
 license {

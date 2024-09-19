@@ -16,4 +16,3 @@ jobs:
       modrinth-publish: true
       artifacts-path: 'build/libs/better-fabric-console-mc*.jar'
       loom: true
-      jdk-version: 21
